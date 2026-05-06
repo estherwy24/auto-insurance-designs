@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auto Insurance Card Variants v3 — MoneyLion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+
+    --bg-primary: #F6F6F6;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #F6F6F6;
+    --bg-alt: #000000;
+
+    --text-primary: #000000;
+    --text-secondary: rgba(0,0,0,0.64);
+    --text-tertiary: rgba(0,0,0,0.48);
+
+    --teal-100: #E1FEFA;
+    --teal-300: #B2FCF1;
+    --teal-500: #33F6D8;
+    --teal-600: #00E5C4;
+    --teal-900: #006657;
+
+    --red-100: #FFEBED;
+    --red-500: #FF334E;
+    --red-600: #CE293F;
+
+    --border-primary: rgba(0,0,0,0.08);
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-full: 999px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: var(--font-family);
+    background: #0a0a0a;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+  }
+
+  body {
+    padding: 48px 16px 80px;
+    min-height: 100vh;
+  }
+
+  .page-title {
+    text-align: center;
+    color: rgba(255,255,255,0.72);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    text-align: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    padding: 0 24px;
+  }
+
+  .variants-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .variant-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .variant-label {
+    color: rgba(255,255,255,0.72);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .variant-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .variant-desc {
+    color: rgba(255,255,255,0.56);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    max-width: 320px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .phone {
+    width: 390px;
+    background: var(--bg-primary);
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow:
+      0 0 0 8px #1a1a1a,
+      0 0 0 9px #2a2a2a,
+      0 30px 60px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-screen {
+    background: var(--bg-primary);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+  }
+  .status-bar {
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: relative;
+  }
+  .status-time {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .dynamic-island {
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 32px;
+    background: #000;
+    border-radius: 20px;
+  }
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-primary);
+  }
+
+  .screen-header {
+    padding: 8px 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .screen-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .header-icon-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feed {
+    background: var(--bg-secondary);
+    padding: 16px 16px 24px;
+    min-height: 600px;
+  }
+
+  .sponsor-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .sponsor-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--teal-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .sponsor-avatar svg {
+    color: #fff;
+    margin-left: 2px;
+  }
+  .sponsor-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .sponsor-more {
+    margin-left: auto;
+    color: var(--text-tertiary);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-primary);
+    padding: 0 16px;
+    background: var(--bg-secondary);
+  }
+  .tab {
+    flex: 1;
+    padding: 14px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .tab.active { color: var(--text-primary); }
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--text-primary);
+  }
+
+  /* ==========================================
+     V1 — SPLIT EDITORIAL CARD
+     ========================================== */
+  .v1-card {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-sm);
+  }
+  .v1-photo-wrap {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  .v1-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .v1-photo-chip {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .v1-photo-chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal-600);
+    box-shadow: 0 0 6px rgba(0,229,196,0.6);
+  }
+
+  .v1-content {
+    padding: 18px 20px 16px;
+  }
+  .v1-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .v1-headline {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .v1-headline .accent {
+    color: var(--teal-900);
+  }
+  .v1-question {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .v1-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-primary);
+  }
+  .v1-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+  }
+  .v1-meta-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+  }
+  .v1-cta {
+    background: var(--bg-alt);
+    color: #fff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: var(--radius-full);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ==========================================
+     V2 — IMMERSIVE WITH FLOATING STAT
+     ========================================== */
+  .v2-card {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    height: 460px;
+    cursor: pointer;
+    background: #1a1a1a;
+  }
+  .v2-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+  .v2-grad {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .v2-eyebrow-row {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 4;
+  }
+  .v2-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .v2-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Floating glass stat card */
+  .v2-stat-card {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-md);
+    padding: 16px 22px 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.4);
+    text-align: center;
+    min-width: 240px;
+  }
+  .v2-stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal-900);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .v2-stat-amount {
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .v2-stat-amount .period {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: -0.02em;
+    margin-left: 2px;
+  }
+  .v2-stat-caption {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+    margin-top: 4px;
+  }
+
+  /* Social proof avatar cluster — top-left, condensed */
+  .v2-avatars {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 5;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 4px 10px 4px 5px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255,255,255,0.22);
+  }
+  .v2-avatar-stack {
+    display: flex;
+    align-items: center;
+  }
+  .v2-avatar-stack span {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+    margin-left: -6px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .v2-avatar-stack span:first-child { margin-left: 0; }
+  .v2-avatar-text {
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+
+  .v2-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 20px 22px;
+    z-index: 3;
+    color: #fff;
+  }
+  .v2-headline {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .v2-sub {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .v2-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .v2-meta {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: -0.01em;
+  }
+  .v2-cta {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--radius-full);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ==========================================
+     V3 — STORY CAROUSEL
+     ========================================== */
+  .v3-card {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    height: 480px;
+    background: #1a1a1a;
+    cursor: pointer;
+  }
+  .v3-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .v3-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%);
+  }
+
+  /* Story-style progress bars */
+  .v3-progress-row {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    gap: 4px;
+    z-index: 6;
+  }
+  .v3-progress {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .v3-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  .v3-eyebrow-row {
+    position: absolute;
+    top: 28px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+  }
+  .v3-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .v3-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .v3-panels-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 3;
+  }
+  .v3-panels {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.32, 0.72, 0.4, 1);
+  }
+  .v3-panel {
+    width: 33.333%;
+    height: 100%;
+    padding: 40px 24px 32px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* Panel 1 — Social proof */
+  .v3-p1-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal-500);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .v3-p1-stat {
+    font-size: 88px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    display: inline-flex;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .v3-p1-stat .period {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: -0.02em;
+    margin-left: 2px;
+  }
+  .v3-p1-caption {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    max-width: 280px;
+  }
+
+  /* Panel 2 — Question */
+  .v3-p2-headline {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+    margin-bottom: 14px;
+  }
+  .v3-p2-sub {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    max-width: 290px;
+  }
+
+  /* Panel 3 — Action */
+  .v3-p3-headline {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .v3-p3-sub {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+    line-height: 1.4;
+    max-width: 280px;
+  }
+  .v3-p3-cta {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 14px 26px;
+    border-radius: var(--radius-full);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+  }
+  .v3-p3-meta {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  /* Engagement footer */
+  .engagement-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .engagement-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .engagement-spacer { margin-left: auto; }
+
+  .bottom-nav {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-primary);
+    display: flex;
+    padding: 8px 0 0;
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 0;
+    color: var(--text-tertiary);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .nav-item.active {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-indicator {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+  }
+  .home-indicator::after {
+    content: '';
+    width: 134px;
+    height: 5px;
+    background: #000;
+    border-radius: 3px;
+  }
+
+  .notes {
+    margin: 80px auto 0;
+    max-width: 720px;
+    color: rgba(255,255,255,0.72);
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px 32px;
+  }
+  .notes h3 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .notes h3:not(:first-child) { margin-top: 24px; }
+  .notes p { margin-bottom: 8px; }
+  .notes strong { color: #fff; font-weight: 600; }
+  .notes ul { padding-left: 20px; }
+  .notes li { margin-bottom: 4px; }
+
+  @media (max-width: 1280px) {
+    .variants-row { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">MoneyLion · Marketplace · Auto Insurance</div>
+<div class="page-subtitle">Round 3 — photo-led layouts with social proof messaging</div>
+
+<div class="variants-row">
+
+  <!-- V1 — SPLIT EDITORIAL -->
+  <div class="variant-block">
+    <div class="variant-label">Layout 1</div>
+    <div class="variant-name">Split Editorial</div>
+    <div class="variant-desc">Photo header + structured content. Reads like an Apple News card. Photo carries emotion, content delivers the social proof and CTA. Lowest creative risk.</div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <div class="dynamic-island"></div>
+          <div class="status-time">9:41</div>
+          <div class="status-icons">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4" y="6" width="3" height="6" rx="0.5"/><rect x="8" y="3" width="3" height="9" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2c2.3 0 4.4.9 6 2.4l-1.4 1.4C11.4 4.7 9.8 4 8 4S4.6 4.7 3.4 5.8L2 4.4C3.6 2.9 5.7 2 8 2zm0 3c1.4 0 2.7.5 3.7 1.4L10.3 7.8C9.7 7.3 8.9 7 8 7s-1.7.3-2.3.8L4.3 6.4C5.3 5.5 6.6 5 8 5zm0 3c.7 0 1.3.2 1.8.6L8 10.4 6.2 8.6c.5-.4 1.1-.6 1.8-.6z"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12" fill="currentColor"><rect x="0.5" y="1" width="22" height="10" rx="2.5" stroke="currentColor" stroke-width="1" fill="none"/><rect x="2" y="2.5" width="19" height="7" rx="1.5"/><rect x="23.5" y="4" width="1.5" height="4" rx="0.5"/></svg>
+          </div>
+        </div>
+
+        <div class="screen-header">
+          <div class="screen-title">Discover</div>
+          <div class="header-icon-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active">For You</div>
+          <div class="tab">Community</div>
+        </div>
+
+        <div class="feed">
+          <div class="sponsor-row">
+            <div class="sponsor-avatar">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg>
+            </div>
+            <div class="sponsor-name">MoneyLion</div>
+            <div class="sponsor-more">···</div>
+          </div>
+
+          <div class="v1-card">
+            <div class="v1-photo-wrap">
+              <img class="v1-photo" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=85&fit=crop&auto=format" alt="Modern car" />
+              <div class="v1-photo-chip">
+                <span class="v1-photo-chip-dot"></span>
+                Drivers like you · CA
+              </div>
+            </div>
+            <div class="v1-content">
+              <div class="v1-eyebrow">Auto insurance</div>
+              <div class="v1-headline">Pay <span class="accent">$270/mo</span> on car insurance.</div>
+              <div class="v1-question">Are you overpaying?</div>
+              <div class="v1-cta-row">
+                <div class="v1-meta">
+                  <span>Free quotes</span>
+                  <span class="v1-meta-dot"></span>
+                  <span>2 min</span>
+                </div>
+                <button class="v1-cta">
+                  See my rate
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="engagement-row">
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>156</span>
+            </div>
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>23</span>
+            </div>
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <div class="engagement-item engagement-spacer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1V11z"/></svg></div>
+            <span>Home</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+            <span>Money</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9z"/></svg></div>
+            <span>Shop</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <span>Rewards</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <span>Profile</span>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V2 — IMMERSIVE WITH FLOATING STAT -->
+  <div class="variant-block">
+    <div class="variant-label">Layout 2</div>
+    <div class="variant-name">Immersive + Floating Stat</div>
+    <div class="variant-desc">Full-bleed photo with the social proof number floating as a glass card. Layered hierarchy. Most premium feel.</div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <div class="dynamic-island"></div>
+          <div class="status-time">9:41</div>
+          <div class="status-icons">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4" y="6" width="3" height="6" rx="0.5"/><rect x="8" y="3" width="3" height="9" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2c2.3 0 4.4.9 6 2.4l-1.4 1.4C11.4 4.7 9.8 4 8 4S4.6 4.7 3.4 5.8L2 4.4C3.6 2.9 5.7 2 8 2zm0 3c1.4 0 2.7.5 3.7 1.4L10.3 7.8C9.7 7.3 8.9 7 8 7s-1.7.3-2.3.8L4.3 6.4C5.3 5.5 6.6 5 8 5zm0 3c.7 0 1.3.2 1.8.6L8 10.4 6.2 8.6c.5-.4 1.1-.6 1.8-.6z"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12" fill="currentColor"><rect x="0.5" y="1" width="22" height="10" rx="2.5" stroke="currentColor" stroke-width="1" fill="none"/><rect x="2" y="2.5" width="19" height="7" rx="1.5"/><rect x="23.5" y="4" width="1.5" height="4" rx="0.5"/></svg>
+          </div>
+        </div>
+
+        <div class="screen-header">
+          <div class="screen-title">Discover</div>
+          <div class="header-icon-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active">For You</div>
+          <div class="tab">Community</div>
+        </div>
+
+        <div class="feed">
+          <div class="sponsor-row">
+            <div class="sponsor-avatar">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg>
+            </div>
+            <div class="sponsor-name">MoneyLion</div>
+            <div class="sponsor-more">···</div>
+          </div>
+
+          <div class="v2-card">
+            <img class="v2-photo" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=85&fit=crop&auto=format" alt="Mountain road driving" />
+            <div class="v2-grad"></div>
+
+            <div class="v2-stat-card">
+              <div class="v2-stat-label">Drivers like you in CA</div>
+              <div class="v2-stat-amount">
+                $270<span class="period">/mo</span>
+              </div>
+              <div class="v2-stat-caption">on car insurance</div>
+            </div>
+
+            <div class="v2-avatars">
+              <div class="v2-avatar-stack">
+                <span style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop')"></span>
+                <span style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop')"></span>
+                <span style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop')"></span>
+                <span style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop')"></span>
+              </div>
+              <div class="v2-avatar-text">2,400+ compared this week</div>
+            </div>
+
+            <div class="v2-content">
+              <div class="v2-headline">Are you overpaying?</div>
+              <div class="v2-sub">See what you'd pay with top CA carriers.</div>
+              <div class="v2-cta-row">
+                <div class="v2-meta">2 min · Free quotes</div>
+                <button class="v2-cta">
+                  See my rate
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="engagement-row">
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>312</span>
+            </div>
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>47</span>
+            </div>
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <div class="engagement-item engagement-spacer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1V11z"/></svg></div>
+            <span>Home</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+            <span>Money</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9z"/></svg></div>
+            <span>Shop</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <span>Rewards</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <span>Profile</span>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V3 — STORY CAROUSEL -->
+  <div class="variant-block">
+    <div class="variant-label">Layout 3</div>
+    <div class="variant-name">Story Carousel</div>
+    <div class="variant-desc">Three swipeable panels: stat → question → action. Auto-advances like Instagram Stories. Hover to pause.</div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <div class="dynamic-island"></div>
+          <div class="status-time">9:41</div>
+          <div class="status-icons">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4" y="6" width="3" height="6" rx="0.5"/><rect x="8" y="3" width="3" height="9" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2c2.3 0 4.4.9 6 2.4l-1.4 1.4C11.4 4.7 9.8 4 8 4S4.6 4.7 3.4 5.8L2 4.4C3.6 2.9 5.7 2 8 2zm0 3c1.4 0 2.7.5 3.7 1.4L10.3 7.8C9.7 7.3 8.9 7 8 7s-1.7.3-2.3.8L4.3 6.4C5.3 5.5 6.6 5 8 5zm0 3c.7 0 1.3.2 1.8.6L8 10.4 6.2 8.6c.5-.4 1.1-.6 1.8-.6z"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12" fill="currentColor"><rect x="0.5" y="1" width="22" height="10" rx="2.5" stroke="currentColor" stroke-width="1" fill="none"/><rect x="2" y="2.5" width="19" height="7" rx="1.5"/><rect x="23.5" y="4" width="1.5" height="4" rx="0.5"/></svg>
+          </div>
+        </div>
+
+        <div class="screen-header">
+          <div class="screen-title">Discover</div>
+          <div class="header-icon-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active">For You</div>
+          <div class="tab">Community</div>
+        </div>
+
+        <div class="feed">
+          <div class="sponsor-row">
+            <div class="sponsor-avatar">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg>
+            </div>
+            <div class="sponsor-name">MoneyLion</div>
+            <div class="sponsor-more">···</div>
+          </div>
+
+          <div class="v3-card" id="v3-card">
+            <img class="v3-bg" src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=900&q=85&fit=crop&auto=format" alt="Driving on forest road" />
+            <div class="v3-overlay"></div>
+
+            <div class="v3-progress-row">
+              <div class="v3-progress"><div class="v3-progress-fill" id="v3-fill-0"></div></div>
+              <div class="v3-progress"><div class="v3-progress-fill" id="v3-fill-1"></div></div>
+              <div class="v3-progress"><div class="v3-progress-fill" id="v3-fill-2"></div></div>
+            </div>
+
+            <div class="v3-panels-wrap">
+              <div class="v3-panels" id="v3-panels">
+                <div class="v3-panel">
+                  <div class="v3-p1-eyebrow">Drivers like you in CA pay</div>
+                  <div class="v3-p1-stat">
+                    $270<span class="period">/mo</span>
+                  </div>
+                  <div class="v3-p1-caption">on car insurance, on average.</div>
+                </div>
+
+                <div class="v3-panel">
+                  <div class="v3-p2-headline">
+                    Are you<br/>overpaying?
+                  </div>
+                  <div class="v3-p2-sub">Most CA drivers don't know what their neighbors pay. You can.</div>
+                </div>
+
+                <div class="v3-panel">
+                  <div class="v3-p3-headline">See where<br/>you stand.</div>
+                  <div class="v3-p3-sub">Compare your rate to top CA carriers in 2 min.</div>
+                  <button class="v3-p3-cta">
+                    See my rate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </button>
+                  <div class="v3-p3-meta">Free · No commitment</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="engagement-row">
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>421</span>
+            </div>
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>62</span>
+            </div>
+            <div class="engagement-item">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <div class="engagement-item engagement-spacer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1V11z"/></svg></div>
+            <span>Home</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+            <span>Money</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9z"/></svg></div>
+            <span>Shop</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <span>Rewards</span>
+          </div>
+          <div class="nav-item">
+            <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <span>Profile</span>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <h3>Layout differences</h3>
+  <p><strong>Layout 1 — Split Editorial.</strong> Photo header (~200px) + structured content section. Apple News card pattern. Clean reading order, lowest creative risk, easiest to ship.</p>
+  <p><strong>Layout 2 — Immersive + Floating Stat.</strong> Photo as full background. Three layered floating elements: glass eyebrow chip, glass stat card with the $270 benchmark, social proof avatar cluster ("2,400+ compared this week"), bottom headline. The stat lives <em>in</em> the photo, not under it.</p>
+  <p><strong>Layout 3 — Story Carousel.</strong> Three swipeable panels with Instagram-style progress bars: <em>stat → question → action</em>. Auto-advances every 4s. Photo stays constant, content cycles. Highest engagement surface area on a single card.</p>
+
+  <h3>Copy decisions</h3>
+  <p><strong>Social proof framing throughout.</strong> "Drivers like you in CA" replaces "CA average." More relatable, peer-grounded — Cialdini's social proof works strongest when the reference group feels personal, not aggregated.</p>
+  <p><strong>The user's actual rate ($310) is intentionally NOT shown on the card.</strong> Stating both numbers collapses the curiosity gap — if the comparison is on the card, the user doesn't need to tap. The card poses the question; the destination resolves it. This is the Loewenstein curiosity gap principle.</p>
+  <p><strong>"Are you overpaying yours?" tightened to "Are you overpaying?"</strong> The "yours" is grammatically redundant after the benchmark stat establishes "your auto insurance" as the implied object. Sharper rhythm without losing meaning.</p>
+
+  <h3>MLDS components used</h3>
+  <ul>
+    <li><strong>L1:</strong> Vertical Banner Card 3.0 (photo region + content region), Button 3.0 Primary Small, Chip 3.0 with glassmorphic backdrop.</li>
+    <li><strong>L2:</strong> Vertical Banner Card 3.0 with full-bleed photo, Button 3.0 Primary on imagery, Chip 3.0 (eyebrow + avatar cluster), glass Card with stat. Standard MLDS anatomy on creative backgrounds.</li>
+    <li><strong>L3:</strong> Vertical Banner Card 3.0 + <strong>internal carousel pattern</strong> — <em>not currently in MLDS</em>. Story-style progress bars borrow Progress/Linear visual treatment in a new pagination context.</li>
+  </ul>
+
+  <h3>[System addition] flag for L3</h3>
+  <p>The story carousel is a new pattern. MLDS 4.0 has Tabs and standalone Carousel Banner Cards (single panel each), but no in-card multi-panel pagination component. If we ship L3, this should be formalized as <strong>"Story Card 3.0"</strong> with: panel container, transition behavior, story-style progress bars, auto-advance timing, pause-on-hover, and tap-to-skip. The pattern is reusable across Marketplace, onboarding, and Cashflow Hub announcements.</p>
+
+  <h3>Recommendation</h3>
+  <p>For an A/B test, ship <strong>L1 vs L2</strong>. Both are MLDS-clean and ship-ready. L1 is the safe pattern, L2 is the high-impact pattern. Hypothesis: <strong>L2 wins on tap-through</strong> (premium imagery + floating data is the pattern interrupt in a feed of mostly-text content), <strong>L1 wins on quote completion</strong> (clearer expectations set before the tap). <strong>L3 is the bigger swing</strong> — pursue if there's appetite to add a new MLDS component.</p>
+</div>
+
+<script>
+  (function() {
+    const card = document.getElementById('v3-card');
+    if (!card) return;
+    const panelsEl = document.getElementById('v3-panels');
+    const fills = [
+      document.getElementById('v3-fill-0'),
+      document.getElementById('v3-fill-1'),
+      document.getElementById('v3-fill-2')
+    ];
+    const PANEL_DURATION = 4000;
+    let currentPanel = 0;
+    let panelStartTime = Date.now();
+    let paused = false;
+
+    function setPanel(idx) {
+      currentPanel = idx;
+      panelStartTime = Date.now();
+      panelsEl.style.transform = `translateX(-${idx * 33.333}%)`;
+      fills.forEach((f, i) => {
+        if (i < idx) f.style.width = '100%';
+        else if (i > idx) f.style.width = '0%';
+      });
+    }
+
+    function tick() {
+      if (paused) {
+        requestAnimationFrame(tick);
+        return;
+      }
+      const elapsed = Date.now() - panelStartTime;
+      const progress = Math.min(elapsed / PANEL_DURATION, 1);
+      fills[currentPanel].style.width = (progress * 100) + '%';
+
+      if (progress >= 1) {
+        const next = (currentPanel + 1) % 3;
+        setPanel(next);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    card.addEventListener('mouseenter', () => { paused = true; });
+    card.addEventListener('mouseleave', () => {
+      paused = false;
+      const currentWidth = parseFloat(fills[currentPanel].style.width) || 0;
+      panelStartTime = Date.now() - (currentWidth / 100) * PANEL_DURATION;
+    });
+
+    setPanel(0);
+    tick();
+  })();
+</script>
+
+</body>
+</html>

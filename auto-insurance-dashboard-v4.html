@@ -1,0 +1,2365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoneyLion · Auto Insurance Dashboard — Three States</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+  --bg-primary: #F6F6F6;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #000000;
+  --text-secondary: rgba(0,0,0,0.64);
+  --text-tertiary: rgba(0,0,0,0.48);
+  --teal-100: #E1FEFA;
+  --teal-300: #B2FCF1;
+  --teal-500: #33F6D8;
+  --teal-600: #00E5C4;
+  --teal-dark: #006657;
+  --yellow-100: #FFFCE9;
+  --yellow-300: #FFF3A5;
+  --yellow-500: #FFE11F;
+  --yellow-700: #B89F00;
+  --red-100: #FFEBED;
+  --red-500: #FF334E;
+  --red-600: #CE293F;
+  --border-primary: rgba(0,0,0,0.08);
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-family);
+  background: #0F0F10;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+body {
+  padding: 56px 24px 96px;
+  min-height: 100vh;
+}
+
+.page-header {
+  max-width: 1320px;
+  margin: 0 auto 56px;
+}
+
+.kicker {
+  display: inline-flex;
+  padding: 6px 12px;
+  background: rgba(0, 229, 196, 0.12);
+  border: 1px solid rgba(0, 229, 196, 0.24);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal-600);
+  margin-bottom: 16px;
+}
+
+.page-header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  line-height: 1.05;
+}
+
+.page-header p {
+  color: rgba(255,255,255,0.6);
+  font-size: 15px;
+  max-width: 880px;
+  line-height: 1.55;
+}
+
+.page-header p strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
+.comparison-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 390px);
+  gap: 32px;
+  justify-content: center;
+}
+
+.option { display: flex; flex-direction: column; gap: 20px; }
+.option-header { display: flex; flex-direction: column; gap: 6px; }
+.option-tag {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.option-tag.future {
+  background: rgba(0, 229, 196, 0.12);
+  border: 1px solid rgba(0, 229, 196, 0.24);
+  color: var(--teal-500);
+}
+.option-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.option-header p { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.5; }
+
+/* ============ PHONE FRAME ============ */
+.phone {
+  width: 390px;
+  height: 844px;
+  background: #000;
+  border-radius: 50px;
+  padding: 8px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  position: relative;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  border-radius: 42px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.dynamic-island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 35px;
+  background: #000;
+  border-radius: 999px;
+  z-index: 11;
+}
+
+.status-bar {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px 0;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 10;
+  position: relative;
+  font-feature-settings: "tnum";
+  flex-shrink: 0;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
+.status-icons { display: flex; gap: 5px; align-items: center; }
+
+/* ============ APP CHROME ============ */
+.app-chrome {
+  background: var(--bg-primary);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 5;
+}
+
+.nav-bar {
+  height: 52px;
+  padding: 6px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  color: var(--text-primary);
+}
+
+.nav-icon { width: 24px; height: 24px; display: grid; place-items: center; position: relative; cursor: pointer; }
+
+.nav-badge {
+  position: absolute;
+  top: -3px; right: -5px;
+  min-width: 18px; height: 18px;
+  padding: 0 4px;
+  background: var(--teal-600);
+  color: #000;
+  font-size: 10px; font-weight: 700;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  border: 2px solid var(--bg-primary);
+}
+
+.tabs {
+  display: flex;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex-shrink: 0;
+  padding: 6px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  position: relative;
+  cursor: pointer;
+}
+
+.tab svg { width: 20px; height: 20px; color: var(--text-tertiary); }
+.tab.active { color: var(--text-primary); }
+.tab.active svg { color: var(--text-primary); }
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; left: 10px; right: 10px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+}
+
+/* ============ CONTENT ============ */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg-primary);
+  padding-bottom: 24px;
+}
+
+.content::-webkit-scrollbar { display: none; }
+
+/* ============ HERO CARD (compressed: 320px) ============ */
+.hero-card {
+  position: relative;
+  margin: 12px 16px 0;
+  height: 320px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #1a1a1a;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+}
+
+.hero-card.tall { height: 380px; }
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: kenburns 22s ease-in-out infinite alternate;
+}
+
+@keyframes kenburns {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1.18) translate(-2%, -1%); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 28%, rgba(0,0,0,0.5) 65%, rgba(0,0,0,0.92) 100%);
+}
+
+.hero-overlay.heavy {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.95) 100%);
+}
+
+.hero-top-row {
+  position: absolute;
+  top: 14px; left: 14px; right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.glass-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 6px 11px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.glass-chip-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--teal-500);
+  box-shadow: 0 0 8px rgba(51, 246, 216, 0.8);
+  animation: pulse 1.6s ease-out infinite;
+}
+
+.glass-chip.urgent .glass-chip-dot {
+  background: var(--yellow-500);
+  box-shadow: 0 0 8px rgba(255, 225, 31, 0.8);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(51, 246, 216, 0.6); }
+  70% { box-shadow: 0 0 0 7px rgba(51, 246, 216, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(51, 246, 216, 0); }
+}
+
+.avatars-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 3px 9px 3px 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255,255,255,0.22);
+}
+
+.avatar-stack { display: flex; align-items: center; }
+
+.avatar-stack span {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  margin-left: -5px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.avatar-stack span:first-child { margin-left: 0; }
+
+.avatars-text {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+/* ============ STATE 1: BENCHMARK FLOATING CARD ============ */
+.bench-card {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-sm);
+  padding: 11px 18px 12px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.4);
+  text-align: center;
+  min-width: 200px;
+}
+
+.bench-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--teal-dark);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.bench-amount {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.bench-amount .period {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.02em;
+  margin-left: 1px;
+}
+
+.bench-caption {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+  margin-top: 2px;
+}
+
+/* Hero bottom content */
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 18px 16px;
+  z-index: 4;
+  color: #fff;
+}
+
+.hero-headline {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+
+.hero-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+  line-height: 1.35;
+  max-width: 290px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hero-meta {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-cta {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hero-cta svg {
+  width: 13px; height: 13px;
+  stroke: #000; stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ STATE 2 HERO ============ */
+.s2-hero-card {
+  position: absolute;
+  top: 56px;
+  left: 14px;
+  right: 14px;
+  z-index: 5;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px 12px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.4);
+}
+
+.s2-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.s2-hero-col { display: flex; flex-direction: column; gap: 2px; }
+.s2-hero-col.right { text-align: right; }
+
+.s2-hero-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border-primary);
+}
+
+.s2-hero-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.s2-hero-amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.s2-hero-amount.save { color: var(--teal-dark); }
+
+.s2-hero-amount .period {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: -0.01em;
+  margin-left: 1px;
+}
+
+.s2-hero-detail {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.s2-hero-detail .provider {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.s2-hero-detail .provider .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--teal-500);
+}
+
+.s2-hero-detail .provider strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.s2-refresh-link {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--teal-dark);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.s2-refresh-link svg {
+  width: 9px; height: 9px;
+  stroke: var(--teal-dark); stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ STATE 3 SMART ACTION CARD ============ */
+.smart-action-card {
+  position: absolute;
+  top: 56px;
+  left: 14px;
+  right: 14px;
+  z-index: 5;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 14px 14px 12px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.3);
+  overflow: hidden;
+}
+
+.smart-action-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--yellow-500), var(--teal-600));
+}
+
+.smart-action-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.smart-action-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--yellow-700);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.smart-action-eyebrow .alert-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--yellow-500);
+  box-shadow: 0 0 0 0 rgba(255, 225, 31, 0.6);
+  animation: alertPulse 1.4s ease-out infinite;
+}
+
+@keyframes alertPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 225, 31, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(255, 225, 31, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 225, 31, 0); }
+}
+
+.smart-action-meta {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: -0.005em;
+}
+
+.smart-action-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.smart-action-title strong {
+  color: var(--yellow-700);
+}
+
+/* 3-stat row */
+.smart-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-primary);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.smart-stat {
+  background: var(--bg-secondary);
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.smart-stat-label {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.smart-stat-value {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.smart-stat-value.short {
+  color: var(--red-600);
+}
+
+.smart-stat-sub {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  letter-spacing: -0.005em;
+}
+
+.smart-divider-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.smart-divider-text::before,
+.smart-divider-text::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-primary);
+}
+
+/* Two action options */
+.smart-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.smart-action-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-xs);
+  padding: 9px 10px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 150ms;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  position: relative;
+}
+
+.smart-action-btn:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.smart-action-btn.primary {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+  color: #fff;
+}
+
+.smart-action-btn.primary:hover {
+  background: #004f44;
+}
+
+.smart-action-btn.secondary {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #fff;
+}
+
+.smart-action-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.smart-action-name svg {
+  width: 10px; height: 10px;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.smart-action-btn.primary .smart-action-name svg { stroke: var(--teal-500); }
+.smart-action-btn.secondary .smart-action-name svg { stroke: #fff; }
+
+.smart-action-detail {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  opacity: 0.85;
+}
+
+.smart-action-arrow {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+.smart-action-arrow svg {
+  width: 10px; height: 10px;
+  stroke: currentColor; stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ POLICY CARD ============ */
+.policy-card {
+  margin: 12px 16px 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+.policy-card.compact {
+  padding: 12px 14px;
+}
+
+.policy-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border-primary);
+  margin-bottom: 12px;
+}
+
+.policy-card.compact .policy-head {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.policy-logo {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-xs);
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 11px;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.policy-logo.statefarm {
+  background: #C8102E;
+  color: #fff;
+}
+
+.policy-info { flex: 1; min-width: 0; }
+
+.policy-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.policy-meta {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.policy-meta .ml-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--teal-100);
+  color: var(--teal-dark);
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.policy-meta .ml-tag svg {
+  width: 8px; height: 8px;
+  stroke: var(--teal-dark); stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.policy-meta .trellis-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(0,0,0,0.05);
+  color: var(--text-secondary);
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.policy-amount {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.policy-amount .unit {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-left: 1px;
+}
+
+/* Coverage detail row (Trellis enriched) */
+.policy-coverage-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.policy-coverage-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.policy-coverage-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.policy-coverage-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* Timeline */
+.policy-timeline { margin-top: 2px; }
+
+.policy-timeline-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.policy-timeline-item { display: flex; flex-direction: column; gap: 1px; }
+.policy-timeline-item.right { text-align: right; }
+
+.policy-timeline-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.policy-timeline-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.policy-timeline-value.urgent { color: var(--yellow-700); }
+
+.policy-timeline-value .ago {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-left: 4px;
+}
+
+.policy-bar {
+  position: relative;
+  height: 5px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.policy-bar-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 62%;
+  background: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal-500) 100%);
+  border-radius: 999px;
+}
+
+.policy-bar-pin {
+  position: absolute;
+  top: -3px;
+  left: 62%;
+  transform: translateX(-50%);
+  width: 11px; height: 11px;
+  background: var(--teal-dark);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.policy-bar-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: -0.005em;
+}
+
+/* ============ AUTO GARAGE CARD ============ */
+.garage-card {
+  margin: 12px 16px 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+}
+
+.garage-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.garage-photo {
+  width: 56px;
+  height: 40px;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.garage-photo svg {
+  width: 36px;
+  height: 36px;
+  color: #fff;
+}
+
+.garage-info { flex: 1; min-width: 0; }
+
+.garage-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.garage-name .honda-mark {
+  width: 16px; height: 16px;
+  border-radius: 3px;
+  background: #cc0000;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+
+.garage-meta {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+  font-weight: 500;
+}
+
+.garage-arrow {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.garage-arrow svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.garage-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-primary);
+}
+
+.garage-stat { display: flex; flex-direction: column; gap: 1px; }
+
+.garage-stat-icon {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.garage-stat-icon svg {
+  width: 10px; height: 10px;
+  stroke: currentColor; stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.garage-stat-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* ============ LIFECYCLE BANNER ============ */
+.lifecycle-banner {
+  margin: 10px 16px 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--yellow-300);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lifecycle-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--yellow-100) 0%, rgba(255,252,233,0) 70%);
+  pointer-events: none;
+}
+
+.lifecycle-icon {
+  flex-shrink: 0;
+  width: 34px; height: 34px;
+  border-radius: var(--radius-xs);
+  background: var(--yellow-500);
+  display: grid; place-items: center;
+  position: relative; z-index: 1;
+}
+
+.lifecycle-icon svg {
+  width: 16px; height: 16px;
+  stroke: var(--text-primary); stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lifecycle-content { flex: 1; position: relative; z-index: 1; }
+
+.lifecycle-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.lifecycle-title .pts { color: var(--teal-dark); }
+
+.lifecycle-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.lifecycle-sub strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.lifecycle-arrow {
+  position: relative; z-index: 1;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.lifecycle-arrow svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ SECTION HEAD ============ */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 18px 16px 8px;
+}
+
+.section-head.tight { padding-top: 12px; }
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.section-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.section-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: rgba(0,0,0,0.06);
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* ============ EDITORIAL OFFER CARD ============ */
+.offers-list {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.offer-card-edit {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.offer-photo {
+  position: relative;
+  height: 96px;
+  overflow: hidden;
+}
+
+.offer-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.offer-photo-chip {
+  position: absolute;
+  top: 10px; left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-primary);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.offer-photo-brand {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  height: 26px;
+  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.offer-photo-brand .brand-mark {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  display: grid; place-items: center;
+  font-size: 7px; font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-mark.progressive { background: #0033A0; color: #FFE600; }
+.brand-mark.endurance { background: #FF6B35; color: #fff; }
+.brand-mark.geico { background: #00A1E0; color: #fff; }
+
+.offer-content { padding: 12px 14px; }
+
+.offer-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.offer-headline {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.offer-headline .accent { color: var(--teal-dark); }
+
+.offer-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-primary);
+}
+
+.offer-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.offer-meta-dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.offer-cta {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 7px 13px;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.offer-cta svg {
+  width: 11px; height: 11px;
+  stroke: #fff; stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ TOP MATCH CARD ============ */
+.match-card {
+  margin: 0 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--teal-300);
+  box-shadow: 0 0 0 3px rgba(178, 252, 241, 0.5), var(--shadow-sm);
+  padding: 14px 16px;
+  position: relative;
+}
+
+.match-ribbon {
+  position: absolute;
+  top: -9px; left: 16px;
+  background: var(--teal-dark);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.match-ribbon svg { width: 9px; height: 9px; fill: var(--yellow-500); }
+
+.match-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.match-brand { display: flex; align-items: center; gap: 9px; }
+
+.match-brand-mark {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-xs);
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: -0.02em;
+}
+
+.match-brand-mark.progressive { background: #0033A0; color: #FFE600; }
+
+.match-brand-info .name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.match-brand-info .meta {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 500;
+}
+
+.match-brand-info .meta svg { width: 9px; height: 9px; fill: var(--yellow-500); }
+
+.match-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--teal-dark);
+  color: #fff;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.match-pill svg {
+  width: 10px; height: 10px;
+  stroke: #fff; stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.match-headline {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.match-headline strong { color: var(--teal-dark); }
+
+.match-stats {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border-primary);
+  border-bottom: 1px solid var(--border-primary);
+  margin-bottom: 10px;
+}
+
+.match-stat { flex: 1; }
+
+.match-stat-value {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.match-stat-value.crossed {
+  color: var(--text-tertiary);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.match-stat-value.save { color: var(--teal-dark); }
+
+.match-stat-value .unit {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.match-stat-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.match-divider { width: 1px; background: var(--border-primary); }
+
+.match-cta-row { display: flex; gap: 6px; }
+
+.match-cta-primary {
+  flex: 1;
+  background: #000;
+  color: #fff;
+  border: none;
+  height: 40px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.match-cta-primary svg {
+  width: 12px; height: 12px;
+  stroke: #fff; stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.match-cta-secondary {
+  background: rgba(0,0,0,0.04);
+  color: var(--text-primary);
+  border: none;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+}
+
+.match-deadline {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: -0.005em;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.match-deadline strong {
+  color: var(--yellow-700);
+  font-weight: 700;
+}
+
+/* Compact match row */
+.match-row {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.match-row .brand-mark-sm {
+  width: 28px; height: 28px;
+  border-radius: var(--radius-xs);
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.brand-mark-sm.geico { background: #00A1E0; color: #fff; }
+.brand-mark-sm.libertymutual { background: #FFD800; color: #002F87; }
+.brand-mark-sm.lemonade { background: #FF0083; color: #fff; }
+
+.match-row-content { flex: 1; min-width: 0; }
+
+.match-row-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.match-row-meta {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.match-row-meta svg { width: 9px; height: 9px; fill: var(--yellow-500); }
+
+.match-row-savings {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal-dark);
+  background: var(--teal-100);
+  padding: 4px 9px;
+  border-radius: 999px;
+  letter-spacing: -0.005em;
+}
+
+/* ============ Spec note ============ */
+.spec-note {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+
+.spec-note strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
+.spec-note.future {
+  background: rgba(0, 229, 196, 0.06);
+  border-color: rgba(0, 229, 196, 0.16);
+}
+
+.notes {
+  max-width: 1280px;
+  margin: 64px auto 0;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 28px 32px;
+  color: rgba(255,255,255,0.72);
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+.notes h3 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.notes h3:not(:first-child) { margin-top: 24px; }
+.notes p { margin-bottom: 8px; }
+.notes strong { color: #fff; font-weight: 600; }
+.notes ul { padding-left: 20px; }
+.notes li { margin-bottom: 4px; }
+
+@media (max-width: 1300px) {
+  .comparison-grid {
+    grid-template-columns: repeat(2, 390px);
+  }
+}
+
+@media (max-width: 880px) {
+  .comparison-grid { grid-template-columns: 1fr; place-items: center; }
+  .option { align-items: center; max-width: 390px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <span class="kicker">MoneyLion · Products &amp; Offers · Car</span>
+  <h1>Three states for the auto landing.</h1>
+  <p>From <strong>first visit</strong> (curiosity gap) → to <strong>persistent dashboard</strong> (knows the bill, knows the renewal) → to the <strong>ideal state</strong>: Trellis policy data + a Garage with vehicle context + cash flow intelligence that surfaces Instacash or Split exactly when the bill is due and the balance is short. The same product, doing more work the longer you stay.</p>
+</div>
+
+<div class="comparison-grid">
+
+  <!-- ============== STATE 1 ============== -->
+  <section class="option">
+    <div class="option-header">
+      <span class="option-tag">State 1 · First visit</span>
+      <h2>Pre-flow landing</h2>
+      <p>Photographic hero, benchmark stat floating, static offers below. Curiosity gap intact.</p>
+    </div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="dynamic-island"></div>
+
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="status-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="black"><path d="M1 8.5h2v2H1v-2zM5 6h2v4.5H5V6zM9 3.5h2v7H9v-7zM13 1h2v9.5h-2V1z"/></svg>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C5 2.5 2.7 3.4 1 5l1.4 1.4C3.7 5.2 5.5 4.5 7.5 4.5s3.8.7 5.1 1.9L14 5c-1.7-1.6-4-2.5-6.5-2.5z" fill="black"/><circle cx="7.5" cy="9" r="1.5" fill="black"/></svg>
+            <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="1" y="2" width="20" height="7" rx="2" stroke="black" stroke-opacity="0.6" fill="none"/><rect x="2.5" y="3.5" width="14" height="4" rx="1" fill="black"/><rect x="22" y="4" width="1.5" height="3" rx="0.5" fill="black" fill-opacity="0.6"/></svg>
+          </div>
+        </div>
+
+        <div class="app-chrome">
+          <div class="nav-bar">
+            <div class="nav-title">Products &amp; Offers</div>
+            <div class="nav-actions">
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span class="nav-badge">1</span></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+            </div>
+          </div>
+          <div class="tabs">
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg><span>Credit Builder</span></div>
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14l-1.5-7H6.5L5 17z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg><span>Car</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><line x1="3" y1="11" x2="21" y2="11"/></svg><span>Cards</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><path d="M15 10.5a2.5 2.5 0 0 0-2.5-2.5h-1A2.5 2.5 0 0 0 9 10.5a2.5 2.5 0 0 0 2.5 2.5h1A2.5 2.5 0 0 1 15 15.5a2.5 2.5 0 0 1-2.5 2.5h-1A2.5 2.5 0 0 1 9 15.5"/></svg><span>Earn More</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h4.5a2.5 2.5 0 0 1 0 5H9V8"/></svg><span>Tax</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>Savings</span></div>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="hero-card">
+            <img class="hero-bg" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=85&fit=crop&auto=format" alt="Mountain road" />
+            <div class="hero-overlay"></div>
+
+            <div class="hero-top-row">
+              <div class="glass-chip">
+                <span class="glass-chip-dot"></span>
+                For Brooklyn
+              </div>
+              <div class="avatars-chip">
+                <div class="avatar-stack">
+                  <span style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop')"></span>
+                  <span style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop')"></span>
+                  <span style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop')"></span>
+                </div>
+                <div class="avatars-text">2,400 this week</div>
+              </div>
+            </div>
+
+            <div class="bench-card">
+              <div class="bench-label">Drivers like you in NY</div>
+              <div class="bench-amount">$270<span class="period">/mo</span></div>
+              <div class="bench-caption">on car insurance, on average.</div>
+            </div>
+
+            <div class="hero-content">
+              <div class="hero-headline">Where do<br/>you stand?</div>
+              <div class="hero-sub">Compare to top NY carriers in 2 min. No impact on credit.</div>
+              <div class="hero-cta-row">
+                <div class="hero-meta">Free · 2 min</div>
+                <button class="hero-cta">See my rate <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div>
+              <div class="section-title">Or browse offers</div>
+              <div class="section-sub">Top picks for NY drivers</div>
+            </div>
+            <div class="section-link">See all</div>
+          </div>
+
+          <div class="offers-list">
+            <div class="offer-card-edit">
+              <div class="offer-photo">
+                <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=900&q=85&fit=crop&auto=format" alt="Driving" />
+                <div class="offer-photo-chip">Auto Insurance</div>
+                <div class="offer-photo-brand"><div class="brand-mark progressive">PG</div>Progressive</div>
+              </div>
+              <div class="offer-content">
+                <div class="offer-eyebrow">12,515 chose this</div>
+                <div class="offer-headline">Bundle home + auto, <span class="accent">save up to $520/yr</span></div>
+                <div class="offer-cta-row">
+                  <div class="offer-meta"><span>4.6 ★</span><span class="offer-meta-dot"></span><span>15 min quote</span></div>
+                  <button class="offer-cta">See offer <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="offer-card-edit">
+              <div class="offer-photo">
+                <img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=900&q=85&fit=crop&auto=format" alt="Repair" />
+                <div class="offer-photo-chip">Vehicle Protection</div>
+                <div class="offer-photo-brand"><div class="brand-mark endurance">ED</div>Endurance</div>
+              </div>
+              <div class="offer-content">
+                <div class="offer-eyebrow">Sponsored</div>
+                <div class="offer-headline">Skip the $4k repair bill, <span class="accent">$300 off today</span></div>
+                <div class="offer-cta-row">
+                  <div class="offer-meta"><span>$300 off</span><span class="offer-meta-dot"></span><span>30-day refund</span></div>
+                  <button class="offer-cta">See offer <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-note">
+      <strong>Anchor:</strong> Glass chip "For Brooklyn" + benchmark stat anchor the surface. Curiosity gap intact — we hint at the user's likely position, never reveal it.
+    </div>
+  </section>
+
+  <!-- ============== STATE 2 ============== -->
+  <section class="option">
+    <div class="option-header">
+      <span class="option-tag">State 2 · Returning member</span>
+      <h2>Personalized dashboard</h2>
+      <p>Current bill vs savings on the hero. Renewal timeline below. Credit Builder triggered the recheck.</p>
+    </div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="dynamic-island"></div>
+
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="status-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="black"><path d="M1 8.5h2v2H1v-2zM5 6h2v4.5H5V6zM9 3.5h2v7H9v-7zM13 1h2v9.5h-2V1z"/></svg>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C5 2.5 2.7 3.4 1 5l1.4 1.4C3.7 5.2 5.5 4.5 7.5 4.5s3.8.7 5.1 1.9L14 5c-1.7-1.6-4-2.5-6.5-2.5z" fill="black"/><circle cx="7.5" cy="9" r="1.5" fill="black"/></svg>
+            <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="1" y="2" width="20" height="7" rx="2" stroke="black" stroke-opacity="0.6" fill="none"/><rect x="2.5" y="3.5" width="14" height="4" rx="1" fill="black"/><rect x="22" y="4" width="1.5" height="3" rx="0.5" fill="black" fill-opacity="0.6"/></svg>
+          </div>
+        </div>
+
+        <div class="app-chrome">
+          <div class="nav-bar">
+            <div class="nav-title">Products &amp; Offers</div>
+            <div class="nav-actions">
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span class="nav-badge">1</span></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+            </div>
+          </div>
+          <div class="tabs">
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg><span>Credit Builder</span></div>
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14l-1.5-7H6.5L5 17z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg><span>Car</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><line x1="3" y1="11" x2="21" y2="11"/></svg><span>Cards</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><path d="M15 10.5a2.5 2.5 0 0 0-2.5-2.5h-1A2.5 2.5 0 0 0 9 10.5a2.5 2.5 0 0 0 2.5 2.5h1A2.5 2.5 0 0 1 15 15.5a2.5 2.5 0 0 1-2.5 2.5h-1A2.5 2.5 0 0 1 9 15.5"/></svg><span>Earn More</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h4.5a2.5 2.5 0 0 1 0 5H9V8"/></svg><span>Tax</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>Savings</span></div>
+          </div>
+        </div>
+
+        <div class="content">
+
+          <div class="hero-card">
+            <img class="hero-bg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85&fit=crop&auto=format" alt="Open road" />
+            <div class="hero-overlay"></div>
+
+            <div class="hero-top-row">
+              <div class="glass-chip">
+                <span class="glass-chip-dot"></span>
+                Hi Ali
+              </div>
+            </div>
+
+            <div class="s2-hero-card">
+              <div class="s2-hero-grid">
+                <div class="s2-hero-col">
+                  <span class="s2-hero-label">You pay</span>
+                  <span class="s2-hero-amount">$310<span class="period">/mo</span></span>
+                </div>
+                <div class="s2-hero-divider"></div>
+                <div class="s2-hero-col right">
+                  <span class="s2-hero-label">Could save</span>
+                  <span class="s2-hero-amount save">$72<span class="period">/mo</span></span>
+                </div>
+              </div>
+              <div class="s2-hero-detail">
+                <span class="provider"><span class="dot"></span> <strong>State Farm</strong> · ending 4821</span>
+                <span class="s2-refresh-link">
+                  <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                  Refresh
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-content">
+              <div class="hero-headline">Switch saves<br/>$864/yr.</div>
+              <div class="hero-sub">Your credit just unlocked better rates. Lock it in before renewal.</div>
+              <div class="hero-cta-row">
+                <div class="hero-meta">5 matches · Updated 12d ago</div>
+                <button class="hero-cta">See matches <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-card">
+            <div class="policy-head">
+              <div class="policy-logo statefarm">SF</div>
+              <div class="policy-info">
+                <div class="policy-name">State Farm Auto</div>
+                <div class="policy-meta">
+                  <span class="ml-tag"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Auto-pay from RoarMoney</span>
+                </div>
+              </div>
+              <div class="policy-amount">$310<span class="unit">/mo</span></div>
+            </div>
+
+            <div class="policy-timeline">
+              <div class="policy-timeline-row">
+                <div class="policy-timeline-item">
+                  <span class="policy-timeline-label">Next payment</span>
+                  <span class="policy-timeline-value urgent">Apr 15<span class="ago">in 9 days</span></span>
+                </div>
+                <div class="policy-timeline-item right">
+                  <span class="policy-timeline-label">Renews</span>
+                  <span class="policy-timeline-value">Sep 15<span class="ago">134 days</span></span>
+                </div>
+              </div>
+              <div class="policy-bar">
+                <div class="policy-bar-fill"></div>
+                <div class="policy-bar-pin"></div>
+              </div>
+              <div class="policy-bar-axis">
+                <span>Sep 15, 2025</span>
+                <span>Sep 15, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lifecycle-banner">
+            <div class="lifecycle-icon">
+              <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div class="lifecycle-content">
+              <div class="lifecycle-title">Credit up <span class="pts">+28 pts</span> via Credit Builder</div>
+              <div class="lifecycle-sub">Excellent (720+) — <strong>your rates just improved</strong></div>
+            </div>
+            <div class="lifecycle-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div>
+              <div class="section-title">Your top match</div>
+              <div class="section-sub">Picked from 5 personalized quotes</div>
+            </div>
+          </div>
+
+          <div class="match-card">
+            <div class="match-ribbon">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+              Best match
+            </div>
+            <div class="match-brand-row">
+              <div class="match-brand">
+                <div class="match-brand-mark progressive">PG</div>
+                <div class="match-brand-info">
+                  <div class="name">Progressive</div>
+                  <div class="meta">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    4.6 · 12,515 chose this
+                  </div>
+                </div>
+              </div>
+              <div class="match-pill">
+                <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                Save $864/yr
+              </div>
+            </div>
+            <div class="match-headline">Switch from State Farm and save <strong>$72 every month</strong></div>
+            <div class="match-stats">
+              <div class="match-stat">
+                <div class="match-stat-value crossed">$310<span class="unit">/mo</span></div>
+                <div class="match-stat-label">Today</div>
+              </div>
+              <div class="match-divider"></div>
+              <div class="match-stat">
+                <div class="match-stat-value save">$238<span class="unit">/mo</span></div>
+                <div class="match-stat-label">Progressive</div>
+              </div>
+              <div class="match-divider"></div>
+              <div class="match-stat">
+                <div class="match-stat-value">10 min</div>
+                <div class="match-stat-label">To switch</div>
+              </div>
+            </div>
+            <div class="match-cta-row">
+              <button class="match-cta-primary">Continue <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+              <button class="match-cta-secondary">Details</button>
+            </div>
+            <div class="match-deadline">Lock in before <strong>Sep 15</strong> when State Farm renews</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-note">
+      <strong>Knows:</strong> Provider, last 4, exact bill, RoarMoney auto-pay, next payment, renewal date, credit movement. Every data point only MoneyLion can see.
+    </div>
+  </section>
+
+  <!-- ============== STATE 3: IDEAL — TRELLIS + GARAGE + CASH FLOW ============== -->
+  <section class="option">
+    <div class="option-header">
+      <span class="option-tag future">State 3 · Ideal · Trellis live</span>
+      <h2>Connected ecosystem</h2>
+      <p>Trellis policy data + Auto Garage + cash flow signal. Bill is due in 4 days. Balance is short. MoneyLion offers Instacash or Split right where it matters.</p>
+    </div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="dynamic-island"></div>
+
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="status-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="black"><path d="M1 8.5h2v2H1v-2zM5 6h2v4.5H5V6zM9 3.5h2v7H9v-7zM13 1h2v9.5h-2V1z"/></svg>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C5 2.5 2.7 3.4 1 5l1.4 1.4C3.7 5.2 5.5 4.5 7.5 4.5s3.8.7 5.1 1.9L14 5c-1.7-1.6-4-2.5-6.5-2.5z" fill="black"/><circle cx="7.5" cy="9" r="1.5" fill="black"/></svg>
+            <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="1" y="2" width="20" height="7" rx="2" stroke="black" stroke-opacity="0.6" fill="none"/><rect x="2.5" y="3.5" width="14" height="4" rx="1" fill="black"/><rect x="22" y="4" width="1.5" height="3" rx="0.5" fill="black" fill-opacity="0.6"/></svg>
+          </div>
+        </div>
+
+        <div class="app-chrome">
+          <div class="nav-bar">
+            <div class="nav-title">Products &amp; Offers</div>
+            <div class="nav-actions">
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span class="nav-badge">1</span></div>
+              <div class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+            </div>
+          </div>
+          <div class="tabs">
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg><span>Credit Builder</span></div>
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14l-1.5-7H6.5L5 17z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg><span>Car</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><line x1="3" y1="11" x2="21" y2="11"/></svg><span>Cards</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><path d="M15 10.5a2.5 2.5 0 0 0-2.5-2.5h-1A2.5 2.5 0 0 0 9 10.5a2.5 2.5 0 0 0 2.5 2.5h1A2.5 2.5 0 0 1 15 15.5a2.5 2.5 0 0 1-2.5 2.5h-1A2.5 2.5 0 0 1 9 15.5"/></svg><span>Earn More</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h4.5a2.5 2.5 0 0 1 0 5H9V8"/></svg><span>Tax</span></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>Savings</span></div>
+          </div>
+        </div>
+
+        <div class="content">
+
+          <!-- HERO with SMART ACTION CARD as the centerpiece -->
+          <div class="hero-card tall">
+            <img class="hero-bg" src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=900&q=85&fit=crop&auto=format" alt="Forest road" />
+            <div class="hero-overlay heavy"></div>
+
+            <div class="hero-top-row">
+              <div class="glass-chip urgent">
+                <span class="glass-chip-dot"></span>
+                Hi Ali · Heads up
+              </div>
+            </div>
+
+            <!-- THE SMART ACTION CARD -->
+            <div class="smart-action-card">
+              <div class="smart-action-head">
+                <span class="smart-action-eyebrow">
+                  <span class="alert-dot"></span>
+                  Bill due in 4 days
+                </span>
+                <span class="smart-action-meta">RoarMoney · checked 9:41am</span>
+              </div>
+
+              <div class="smart-action-title">
+                Your <strong>$310 State Farm</strong> hits Apr 15. Balance won't cover it.
+              </div>
+
+              <div class="smart-stats">
+                <div class="smart-stat">
+                  <div class="smart-stat-label">Due</div>
+                  <div class="smart-stat-value">$310</div>
+                  <div class="smart-stat-sub">Apr 15</div>
+                </div>
+                <div class="smart-stat">
+                  <div class="smart-stat-label">Balance</div>
+                  <div class="smart-stat-value">$186</div>
+                  <div class="smart-stat-sub">Right now</div>
+                </div>
+                <div class="smart-stat">
+                  <div class="smart-stat-label">Short</div>
+                  <div class="smart-stat-value short">$124</div>
+                  <div class="smart-stat-sub">Cover it</div>
+                </div>
+              </div>
+
+              <div class="smart-divider-text">Choose how to cover</div>
+
+              <div class="smart-actions">
+                <button class="smart-action-btn primary">
+                  <span class="smart-action-name">
+                    <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Instacash
+                  </span>
+                  <span class="smart-action-detail">$124 now · No fee</span>
+                  <span class="smart-action-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                </button>
+                <button class="smart-action-btn secondary">
+                  <span class="smart-action-name">
+                    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    Split
+                  </span>
+                  <span class="smart-action-detail">$77.50 × 4 weeks</span>
+                  <span class="smart-action-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- AUTO GARAGE: NEW SECTION -->
+          <div class="section-head tight">
+            <div>
+              <div class="section-title">Your garage</div>
+            </div>
+            <div class="section-link">View all</div>
+          </div>
+
+          <div class="garage-card">
+            <div class="garage-head">
+              <div class="garage-photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14l-1.5-7H6.5L5 17z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg>
+              </div>
+              <div class="garage-info">
+                <div class="garage-name">
+                  <span class="honda-mark">H</span>
+                  2019 Honda Civic Sport
+                </div>
+                <div class="garage-meta">FRT-8492 · 47,200 mi · Gray</div>
+              </div>
+              <div class="garage-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+            <div class="garage-stats">
+              <div class="garage-stat">
+                <span class="garage-stat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                  Service
+                </span>
+                <span class="garage-stat-value">2,800 mi</span>
+              </div>
+              <div class="garage-stat">
+                <span class="garage-stat-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  KBB Value
+                </span>
+                <span class="garage-stat-value">$14,500</span>
+              </div>
+              <div class="garage-stat">
+                <span class="garage-stat-icon">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Insured
+                </span>
+                <span class="garage-stat-value">Full</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- POLICY (TRELLIS-ENRICHED) -->
+          <div class="policy-card compact" style="margin-top: 10px;">
+            <div class="policy-head">
+              <div class="policy-logo statefarm">SF</div>
+              <div class="policy-info">
+                <div class="policy-name">State Farm Auto</div>
+                <div class="policy-meta">
+                  <span class="trellis-tag">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Trellis verified
+                  </span>
+                </div>
+              </div>
+              <div class="policy-amount">$310<span class="unit">/mo</span></div>
+            </div>
+
+            <div class="policy-coverage-row">
+              <div class="policy-coverage-item">
+                <span class="policy-coverage-label">Coverage</span>
+                <span class="policy-coverage-value">Full</span>
+              </div>
+              <div class="policy-coverage-item">
+                <span class="policy-coverage-label">Deductible</span>
+                <span class="policy-coverage-value">$500</span>
+              </div>
+              <div class="policy-coverage-item">
+                <span class="policy-coverage-label">Renews</span>
+                <span class="policy-coverage-value">Sep 15</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOP MATCH — context aware -->
+          <div class="section-head">
+            <div>
+              <div class="section-title">Better next month</div>
+              <div class="section-sub">Match for your 2019 Civic + 720+ credit</div>
+            </div>
+          </div>
+
+          <div class="match-card">
+            <div class="match-ribbon">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+              Best match
+            </div>
+            <div class="match-brand-row">
+              <div class="match-brand">
+                <div class="match-brand-mark progressive">PG</div>
+                <div class="match-brand-info">
+                  <div class="name">Progressive</div>
+                  <div class="meta">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    4.6 · Same Full coverage
+                  </div>
+                </div>
+              </div>
+              <div class="match-pill">
+                <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                $864/yr
+              </div>
+            </div>
+            <div class="match-headline">After Apr 15, switch to <strong>$238/mo</strong> and save the difference</div>
+            <div class="match-stats">
+              <div class="match-stat">
+                <div class="match-stat-value crossed">$310<span class="unit">/mo</span></div>
+                <div class="match-stat-label">State Farm</div>
+              </div>
+              <div class="match-divider"></div>
+              <div class="match-stat">
+                <div class="match-stat-value save">$238<span class="unit">/mo</span></div>
+                <div class="match-stat-label">Progressive</div>
+              </div>
+              <div class="match-divider"></div>
+              <div class="match-stat">
+                <div class="match-stat-value">10 min</div>
+                <div class="match-stat-label">To switch</div>
+              </div>
+            </div>
+            <div class="match-cta-row">
+              <button class="match-cta-primary">Continue <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+              <button class="match-cta-secondary">Details</button>
+            </div>
+            <div class="match-deadline">Cover Apr 15 first. Switch can wait until <strong>Sep 15</strong> renewal.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-note future">
+      <strong>What this state proves:</strong> The auto tab isn't just a marketplace anymore. It's a <strong>cross-product agent</strong>: PFM detects the cash gap, Trellis confirms the bill, the Garage holds vehicle context, Instacash and Split are right there as solutions, and the long-term match still sits below — sequenced behind today's payment because Ali can't switch what she can't pay.
+    </div>
+  </section>
+
+</div>
+
+<div class="notes">
+  <h3>The progression</h3>
+  <p><strong>State 1 → 2 → 3 is the same surface getting smarter.</strong> Not three different screens — one screen with progressively more data and progressively more product working together. That's the pitch in one image.</p>
+
+  <h3>What State 3 unlocks (that State 2 can't)</h3>
+  <ul>
+    <li><strong>Trellis live policy:</strong> coverage type, deductible, full renewal terms — beyond what we can derive from RoarMoney transactions alone</li>
+    <li><strong>Auto Garage:</strong> 2019 Honda Civic Sport, plate, mileage, KBB value, service interval. Vehicle becomes a first-class object in MoneyLion, not just an insurance abstraction</li>
+    <li><strong>Cash flow trigger:</strong> RoarMoney sees $186 balance, knows $310 hits in 4 days. PFM detects the gap. Smart action surfaces <em>Instacash ($124 now)</em> or <em>Split ($77.50 × 4)</em> right when relevant</li>
+    <li><strong>Sequenced advice:</strong> Top match card explicitly defers — "Cover Apr 15 first. Switch can wait until Sep 15." MoneyLion isn't pushing a switch when there's a more urgent cash flow problem to solve</li>
+  </ul>
+
+  <h3>The Smart Action card anatomy</h3>
+  <p><strong>Eyebrow with pulsing dot</strong> uses Yellow-500 (warning, not red — this is heads-up, not crisis). <strong>Three-stat row</strong> (Due / Balance / Short) shows the math at a glance, with the shortfall highlighted in Red-600. <strong>Two action buttons side-by-side</strong>: Instacash (teal — primary positive cash flow) and Split (black — neutral premium alternative). Both are MoneyLion products — no third-party leakage at the moment of need.</p>
+  <p>The card sits on a darker hero overlay (heavier than States 1-2) because the action card is the message. The photo is atmosphere only.</p>
+
+  <h3>[System addition] flags</h3>
+  <ul>
+    <li><strong>Smart Action card pattern.</strong> Three-stat math row + two MoneyLion-product action buttons + alert eyebrow. This is a reusable surface for any cash flow gap moment (rent, utilities, subscriptions). Worth promoting to MLDS as <strong>"Cash Flow Action Card"</strong>.</li>
+    <li><strong>Auto Garage card.</strong> Vehicle as a first-class entity. Pattern likely extends to Loans (auto loan), Marketplace (warranty, repair), and PFM (depreciation tracking).</li>
+    <li><strong>Trellis-verified tag.</strong> Source-of-truth indicator that distinguishes derived data (transactions) from authoritative data (insurer API). Same anatomy could apply to Plaid-verified, IRS-verified, employer-verified data points.</li>
+  </ul>
+
+  <h3>Proactive insight</h3>
+  <p>The Smart Action card's logic should govern hero priority across the whole app. When there's no cash flow gap, the savings-opportunity hero (State 2) leads. When there is, the Smart Action hero (State 3) takes over automatically. Same surface, different priority based on what's actually urgent for the user that day. This is the personalization engine doing its real job — choosing which message gets the hero slot.</p>
+
+  <h3>One thing to validate <em>[Hypothesis — worth testing]</em></h3>
+  <p>That offering Instacash <em>specifically tied to a known bill</em> ("$124 to cover State Farm Apr 15") converts higher than offering Instacash generically ("Need cash? Get up to $300"). Hypothesis: contextual triggers more than triple intent. Easiest test: A/B the standard Instacash entry point against a bill-specific entry point in the Cashflow Hub. Measure tap-through and downstream repayment health.</p>
+
+  <h3>One risk to flag</h3>
+  <p>Three states stacked is the design narrative. Production reality: each unlock requires real product work — Trellis integration scope, Garage data model, RoarMoney → marketplace event bus, Instacash/Split eligibility checks at quote time. The screen is the cheapest part of State 3. If we ship the design before the data pipes, the dashboard will look generic again. Worth scoping the data layer alongside the visual.</p>
+</div>
+
+</body>
+</html>
