@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoneyLion Auto Insurance Product Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+    --phase1: #006657;
+    --phase1-light: #E1FEFA;
+    --phase1-mid: #B2FCF1;
+    --phase2: #2563EB;
+    --phase2-light: #DBEAFE;
+    --phase2-mid: #93C5FD;
+    --phase3: #065F46;
+    --phase3-light: #D1FAE5;
+    --phase3-mid: #6EE7B7;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-tertiary: #6B7280;
+    --bg-page: #FFFFFF;
+    --bg-section: #F9FAFB;
+    --border: #E5E7EB;
+    --tag-product: #2563EB;
+    --tag-product-bg: #DBEAFE;
+    --tag-marketing: #9D174D;
+    --tag-marketing-bg: #FCE7F3;
+    --tag-data: #065F46;
+    --tag-data-bg: #D1FAE5;
+    --tag-partnership: #92400E;
+    --tag-partnership-bg: #FEF3C7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-family);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-page);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px 64px;
+  }
+
+  .copy-banner {
+    background: #F0F4FF;
+    border: 1px solid #C7D2FE;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin: 24px 0;
+    font-size: 12px;
+    color: #4338CA;
+    user-select: none;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .hero-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--phase1);
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .hero-vision {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 720px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+  .hero-meta strong { color: var(--text-secondary); font-weight: 600; }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  /* ─── STAT CARDS ─── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--bg-section);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--phase1);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+  }
+
+  /* ─── COMPETITIVE TABLE ─── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .comp-grid .cell {
+    padding: 14px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .comp-grid .cell:last-child { border-right: none; }
+  .comp-grid .row:last-child .cell { border-bottom: none; }
+  .comp-grid .header .cell {
+    background: var(--bg-section);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+  }
+  .comp-grid .cell.dim-label {
+    background: #FAFAFA;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+  .comp-grid .cell.highlight {
+    background: var(--phase1-light);
+    font-weight: 600;
+  }
+  .check { color: var(--phase1); font-weight: 700; }
+  .cross { color: #D1D5DB; }
+
+  /* ─── PHASE CARDS ─── */
+  .phase-block {
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+  }
+  .phase-block.p1 {
+    background: linear-gradient(135deg, var(--phase1-light) 0%, #F0FFFE 100%);
+    border-color: var(--phase1-mid);
+  }
+  .phase-block.p2 {
+    background: linear-gradient(135deg, var(--phase2-light) 0%, #F0F6FF 100%);
+    border-color: var(--phase2-mid);
+  }
+  .phase-block.p3 {
+    background: linear-gradient(135deg, var(--phase3-light) 0%, #F0FDF8 100%);
+    border-color: var(--phase3-mid);
+  }
+  .phase-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .phase-tag.p1 { background: var(--phase1); color: #fff; }
+  .phase-tag.p2 { background: var(--phase2); color: #fff; }
+  .phase-tag.p3 { background: var(--phase3); color: #fff; }
+
+  .phase-block h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .phase-block .phase-timing {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+  }
+  .phase-block .belief-shift {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 3px solid;
+  }
+  .phase-block.p1 .belief-shift { border-color: var(--phase1); }
+  .phase-block.p2 .belief-shift { border-color: var(--phase2); }
+  .phase-block.p3 .belief-shift { border-color: var(--phase3); }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .deliverable {
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .deliverable .d-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .deliverable .d-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-right: 3px;
+    vertical-align: middle;
+  }
+  .tag-product { background: var(--tag-product-bg); color: var(--tag-product); }
+  .tag-marketing { background: var(--tag-marketing-bg); color: var(--tag-marketing); }
+  .tag-data { background: var(--tag-data-bg); color: var(--tag-data); }
+  .tag-partnership { background: var(--tag-partnership-bg); color: var(--tag-partnership); }
+
+  .phase-unlocks {
+    background: rgba(255,255,255,0.65);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .phase-unlocks strong { color: var(--text-primary); }
+
+  /* ─── VISUAL TIMELINE ─── */
+  .timeline-container {
+    position: relative;
+    margin: 32px 0;
+  }
+  .timeline-phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .timeline-phases::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--phase1) 0%, var(--phase1) 33%, var(--phase2) 33%, var(--phase2) 66%, var(--phase3) 66%, var(--phase3) 100%);
+    border-radius: 2px;
+  }
+  .tl-phase {
+    text-align: center;
+    padding-top: 48px;
+    position: relative;
+  }
+  .tl-phase::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--border);
+  }
+  .tl-phase.p1::before { background: var(--phase1); box-shadow: 0 0 0 2px var(--phase1); }
+  .tl-phase.p2::before { background: var(--phase2); box-shadow: 0 0 0 2px var(--phase2); }
+  .tl-phase.p3::before { background: var(--phase3); box-shadow: 0 0 0 2px var(--phase3); }
+
+  .tl-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tl-phase.p1 .tl-label { color: var(--phase1); }
+  .tl-phase.p2 .tl-label { color: var(--phase2); }
+  .tl-phase.p3 .tl-label { color: var(--phase3); }
+
+  .tl-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+  .tl-time {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-bottom: 12px;
+  }
+  .tl-items {
+    list-style: none;
+    padding: 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ─── FLYWHEEL ─── */
+  .flywheel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .flywheel-center {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--phase1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .flywheel-spokes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-left: -20px;
+    flex: 1;
+    max-width: 580px;
+  }
+  .fw-spoke {
+    background: var(--bg-section);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .fw-spoke .fw-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--phase1);
+    margin-bottom: 4px;
+  }
+  .fw-spoke .fw-in {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .fw-spoke .fw-out {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  /* ─── REVENUE MODEL ─── */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .rev-card {
+    text-align: center;
+    padding: 20px 12px;
+    border-radius: 12px;
+    background: var(--bg-section);
+    border: 1px solid var(--border);
+  }
+  .rev-card .rev-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .rev-card .rev-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .rev-card .rev-desc {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+  }
+  .rev-card.ml-only {
+    background: var(--phase1-light);
+    border-color: var(--phase1-mid);
+  }
+  .rev-versus {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-top: 12px;
+  }
+  .rev-versus strong { color: var(--phase1); }
+
+  /* ─── SUCCESS METRICS ─── */
+  .metrics-phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .metric-col {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .metric-col.p1 { background: var(--phase1-light); border-color: var(--phase1-mid); }
+  .metric-col.p2 { background: var(--phase2-light); border-color: var(--phase2-mid); }
+  .metric-col.p3 { background: var(--phase3-light); border-color: var(--phase3-mid); }
+  .metric-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .metric-col.p1 h4 { color: var(--phase1); }
+  .metric-col.p2 h4 { color: var(--phase2); }
+  .metric-col.p3 h4 { color: var(--phase3); }
+  .metric-item {
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    line-height: 1.4;
+  }
+  .metric-item:last-child { border-bottom: none; }
+  .metric-item strong { color: var(--text-primary); display: block; font-size: 13px; }
+
+  /* ─── RISKS ─── */
+  .risk-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .risk-card {
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--bg-section);
+    border: 1px solid var(--border);
+  }
+  .risk-card .risk-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .risk-card .risk-impact {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .risk-card .risk-impact.critical { color: #DC2626; }
+  .risk-card .risk-impact.high { color: #D97706; }
+  .risk-card .risk-impact.medium { color: #6B7280; }
+  .risk-card .risk-mitigation {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ─── SUPPORTING DOCS ─── */
+  .doc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .doc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--bg-section);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .doc-item .doc-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .doc-item .doc-text { flex: 1; }
+  .doc-item .doc-title { font-weight: 600; font-size: 13px; display: block; }
+  .doc-item .doc-desc { font-size: 11px; color: var(--text-tertiary); display: block; margin-top: 2px; }
+
+  /* ─── CONVERSION JOURNEY ─── */
+  .journey-steps {
+    display: flex;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .j-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 16px 12px;
+  }
+  .j-step::after {
+    content: '';
+    position: absolute;
+    top: 32px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid var(--border);
+    border-right: 2px solid var(--border);
+    transform: rotate(45deg);
+  }
+  .j-step:last-child::after { display: none; }
+  .j-step .j-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--phase1);
+    margin-bottom: 4px;
+  }
+  .j-step .j-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .j-step .j-belief {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-style: italic;
+  }
+  .j-step .j-product {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  p.section-intro {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 24px;
+  }
+
+  @media print {
+    .copy-banner { display: none; }
+    .page { padding: 0; }
+    .phase-block { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<div class="copy-banner">
+  To copy into Confluence: Click inside the page content below, then Select All (Cmd+A), Copy (Cmd+C), and Paste (Cmd+V) into a new Confluence page. Formatting will be preserved.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="hero">
+  <div class="hero-label">Product Roadmap</div>
+  <h1>MoneyLion Auto Insurance</h1>
+  <p class="hero-vision">Insurance as part of MoneyLion's financial wellness ecosystem that makes our product stickier, more valuable, and embedded in users' financial lives.</p>
+  <div class="hero-meta">
+    <span><strong>Driver:</strong> Esther Chiah</span>
+    <span><strong>Status:</strong> Draft</span>
+    <span><strong>Updated:</strong> May 2026</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STRATEGIC CONTEXT -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Strategic Context</div>
+  <h2>Why Auto Insurance, Why Now</h2>
+  <p class="section-intro">Consumer switching intent is at the highest level since 2018. The embedded insurance market is wide open. MoneyLion has 12 months before competitors with similar data attempt the same play.</p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-number">45%</div>
+      <div class="stat-label">Auto premium increase since 2019. Price pain is real.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">68%</div>
+      <div class="stat-label">of consumers find savings when they actually shop (Polly 2026)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$700B+</div>
+      <div class="stat-label">Embedded insurance GWP projected globally by 2029</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">19%</div>
+      <div class="stat-label">of banks/fintechs have active embedded insurance today</div>
+    </div>
+  </div>
+
+  <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">MoneyLion sits on four assets no competitor can replicate in combination: <strong>longitudinal financial behavior data</strong> on 18M users, <strong>Trellis's bindable quote infrastructure</strong> (acquired March 2026), <strong>daily-use financial app engagement</strong>, and a <strong>first-party product ecosystem</strong> (Instacash, Split, Credit Builder, RoarMoney, CoPilot, Garage, 1,200+ Enterprise Partners) that can wrap around insurance in ways no standalone marketplace can.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMPETITIVE POSITIONING -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Competitive Landscape</div>
+  <h2>The "Fintech Insurance" Space Is Wide Open</h2>
+  <p class="section-intro">SoFi and Chime are focused on top of funnel generation with minimal product integration. Credit Karma standsout as a strategic competitor. MoneyLion's advantage lies is in ecosystem depth.</p>
+
+  <div class="comp-grid">
+    <div class="row header" style="display: contents;">
+      <div class="cell" style="background: var(--bg-section); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary);">Dimension</div>
+      <div class="cell" style="background: var(--bg-section); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary);">Credit Karma</div>
+      <div class="cell" style="background: var(--bg-section); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary);">SoFi / Chime</div>
+      <div class="cell" style="background: var(--phase1-light); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--phase1);">MoneyLion</div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">User base</div>
+      <div class="cell">130M+ members</div>
+      <div class="cell">Large (varying)</div>
+      <div class="cell highlight">18M users</div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">Data edge</div>
+      <div class="cell">Telematics (driving) + credit + tax (Intuit)</div>
+      <div class="cell"><span class="cross">None.</span> Redirect to Experian / Insurify</div>
+      <div class="cell highlight">Financial behavior + credit + cash flow + bank transactions</div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">Product ecosystem</div>
+      <div class="cell"><span class="cross">None.</span> No banking, no advances, no credit building</div>
+      <div class="cell">Banking only. No integration.</div>
+      <div class="cell highlight"><span class="check">Full:</span> IC, Split, Credit Builder, CoPilot, Garage, 1,200+ partners</div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">In-app bind</div>
+      <div class="cell"><span class="cross">No.</span> Progressive only</div>
+      <div class="cell"><span class="cross">No.</span> User leaves the app</div>
+      <div class="cell highlight"><span class="check">Yes, after</span>&nbsp;Trellis/Savvy full integration</div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">Financing</div>
+      <div class="cell"><span class="cross">None</span></div>
+      <div class="cell"><span class="cross">None</span></div>
+      <div class="cell highlight"><span class="check">IC down payment + Split ongoing premiums</span></div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">Ongoing monitoring</div>
+      <div class="cell">Karma Drive (Progressive only)</div>
+      <div class="cell"><span class="cross">None</span></div>
+      <div class="cell highlight"><span class="check">Ability to personalize continuous rate monitoring</span></div>
+    </div>
+    <div class="row" style="display: contents;">
+      <div class="cell dim-label">Threat level</div>
+      <div class="cell" style="font-weight: 700; color: #DC2626;">CRITICAL</div>
+      <div class="cell" style="color: var(--text-tertiary);">LOW</div>
+      <div class="cell highlight" style="color: var(--phase1); font-weight: 700;">THE OPPORTUNITY</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- CONVERSION JOURNEY -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">User Journey</div>
+  <h2>The Conversion Chain: Five Moments That Matter</h2>
+  <p class="section-intro">Each moment must happen in sequence. If any breaks, the chain fails. The roadmap is built around making each moment progressively more powerful.</p>
+
+  <div class="journey-steps">
+    <div class="j-step">
+      <div class="j-num">Moment 0</div>
+      <div class="j-title">Detection</div>
+      <div class="j-belief">"ML knows I have a car"</div>
+      <div class="j-product">Auto loan signals, bank data (BV / CM detection)</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">Moment 1</div>
+      <div class="j-title">Doubt</div>
+      <div class="j-belief">"I might be overpaying"</div>
+      <div class="j-product">Savings-insight card with a benchmark number</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">Moment 2</div>
+      <div class="j-title">Curiosity</div>
+      <div class="j-belief">"Let me check, 3 taps"</div>
+      <div class="j-product">Pre-filled profile, 15-second confirmation</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">Moment 3</div>
+      <div class="j-title">Conviction</div>
+      <div class="j-belief">"This is actually better"</div>
+      <div class="j-product">One savings gap number, not a wall of options</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">Moment 4</div>
+      <div class="j-title">Switch</div>
+      <div class="j-belief">"MoneyLion saved me money"</div>
+      <div class="j-product">IC covers down payment. Auto-cancel. Rate Journey loop.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- VISUAL TIMELINE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Roadmap Overview</div>
+  <h2>Three Phases, One Flywheel</h2>
+
+  <div class="timeline-container">
+    <div class="timeline-phases">
+      <div class="tl-phase p1">
+        <div class="tl-label">Phase 1</div>
+        <div class="tl-name">"ML Knows Your Rate"</div>
+        <div class="tl-time">Now through 3 months</div>
+        <ul class="tl-items">
+          <li>Savings-insight cards</li>
+          <li>Smart targeting rules</li>
+          <li>LiAT pre-fill rebuild</li>
+          <li>Animated loading screen</li>
+          <li>Outbound orchestration</li>
+          <li>Rate Journey widget</li>
+          <li>IC business case validation</li>
+          <li>Data hydration spec</li>
+        </ul>
+      </div>
+      <div class="tl-phase p2">
+        <div class="tl-label">Phase 2</div>
+        <div class="tl-name">"ML Finds a Better Rate"</div>
+        <div class="tl-time">3 through 6 months</div>
+        <ul class="tl-items">
+          <li>Trellis hollow flow integration</li>
+          <li>Bindable quotes in-app</li>
+          <li>Data hydration to carriers</li>
+          <li>IC down payment activation</li>
+          <li>Transaction-triggered targeting</li>
+          <li>Garage integration</li>
+          <li>Rate Journey upgrade (real data)</li>
+        </ul>
+      </div>
+      <div class="tl-phase p3">
+        <div class="tl-label">Phase 3</div>
+        <div class="tl-name">"ML Watches For You"</div>
+        <div class="tl-time">6 through 12 months</div>
+        <ul class="tl-items">
+          <li>Continuous rate monitoring</li>
+          <li>Insurance Health Score</li>
+          <li>Financial Stress Protection</li>
+          <li>Split for ongoing premiums</li>
+          <li>Embedded at car purchase</li>
+          <li>Agent-to-ML user acquisition</li>
+          <li>Financial Health Score signal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- PHASE 1 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Phase Details</div>
+
+  <div class="phase-block p1">
+    <span class="phase-tag p1">Phase 1</span>
+    <h3>"Building the Auto Insurance user journey"</h3>
+    <div class="belief-shift"><span style="background-color: rgb(255, 255, 255); color: rgb(107, 114, 128); font-size: 13px; font-style: normal;">Goal: Show users an auto journey that is contextual / relevant offers to drive engagement into the insurance segment.&nbsp;</span><br></div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> <span class="tag tag-marketing">Marketing</span> Savings-Insight Cards</div>
+        <div class="d-desc">Discover feed cards and outbound messages showing personalized benchmarks: "Drivers your age in [city] pay $X/mo." The doubt-creating number is the single most important acquisition surface.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-data">Data</span> Smart Targeting Rules</div>
+        <div class="d-desc">Segment logic: auto loan holders, credit improvers, high-premium states (FL/MI/LA/CA), new users. Only show insurance to users with car-ownership signals.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-desc"><div class="d-title" style="color: rgb(17, 24, 39);"><span class="tag tag-product" style="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(219, 234, 254); color: rgb(37, 99, 235);">Product</span>&nbsp;Direct-to-Offers Experience</div><div class="d-desc" style="color: rgb(75, 85, 99);">High-confidence segments skip confirmation entirely. Branded carrier offers shown directly in Discover and in-app surfaces. Minimal friction for users with complete data.</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Animated Loading Screen Redesign</div>
+        <div class="d-desc">New animated loading experience designed to handle up to 18 seconds of carrier quote retrieval. Keeps users engaged with progress steps and carrier branding during the wait. In progress; UI attached on PM dashboard.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Auto Tab Redesign</div>
+        <div class="d-desc">Remove redundant PII widget. Replace horizontal scroll with vertical scannable offer list (EWA pattern). Reduce friction for users who have already shown intent.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-marketing">Marketing</span> Outbound Orchestration</div>
+        <div class="d-desc">Configure Hightouch + Universal Nurture for insurance cross-sell. Renewal timing, new car purchase, and credit milestone segments. Launch early pilots.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Rate Journey Widget</div>
+        <div class="d-desc">Persistent dashboard widget: estimated range, last checked date, credit improvement callout. Transforms one-time flow into persistent engagement. The anchor of the long-term experience.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-partnership">Partnership</span> <span class="tag tag-data">Data</span> Trellis Readiness</div>
+        <div class="d-desc">Data hydration spec, carrier prefill validation, IC eligibility cohort sizing, Rewards integration discovery. Everything Trellis needs to succeed on day one.</div>
+      </div>
+    </div>
+
+    <div class="phase-unlocks">
+      <strong>What this unlocks:</strong> A warm, insurance-aware audience. Proven targeting and distribution channels. A data hydration contract ready for Trellis. IC business case validated. When Phase 2 arrives, it launches into demand, not a cold start.
+    </div><div class="phase-unlocks"><div class="d-desc" style="font-size: 12px; line-height: 1.5;">---</div><div class="d-desc" style="font-size: 12px; line-height: 1.5;">1. First we should test on direct to offer (all are static)</div><div class="d-desc" style="font-size: 12px; line-height: 1.5;">2. Then we work on data hydration to figure out what Engine/Trellis requires from users that will help provide better offers</div></div><div class="phase-unlocks">&gt; Tasks to work on immediately : 1) Entry point, 2) Targeting, 3) Direct to Offer.</div><div class="phase-unlocks">1. Direct-to-offer card (remove the prefill requirement, horizontal scroll, loading animated), 2. Get the data on auto insurance (BV how many users have auto payment, auto insurance, credit monitoring data auto loans, tradelines), 3. Work on a loading animation screen (Full vs Horizontal scroll), 4. Review how current auto insurance tab is set up - it doesn't look like its the same with the current marketplace tabs, 5. Insight / Discover card that is contextual to users. What are the providers, look into tradeline how many haev these car loans. and what are the highlights for potential savings.&nbsp;</div><div class="phase-unlocks">&gt; Idea for account tab : We can bring users to Accounts tab on actual transactions we see. This should not be a blocker - we can show it on Featured tab and we can show users the actual transcation, then lead users back to auto.&nbsp;</div><div class="phase-unlocks">&gt; Any datapoints that we want to gather for Auto should be stored and be reusable in the format that we are already asking users for (i.e. DOB instead of Age)</div><div class="phase-unlocks">&gt; Power point presentation. focus more on Phase 1&nbsp;</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PHASE 2 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <div class="phase-block p2">
+    <span class="phase-tag p2">Phase 2</span>
+    <h3>"MoneyLion Finds You a Better Rate"</h3>
+    <div class="phase-timing">3 through 6 months. Goal: Replace click-out lead-gen with in-app bindable quotes. Turn Phase 1 distribution into a conversion machine.</div>
+
+    <div class="belief-shift">
+      <strong>User belief shift:</strong> From "MoneyLion can show me rates" to "MoneyLion switched my insurance in 60 seconds and covered my down payment."
+    </div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> <span class="tag tag-partnership">Partnership</span> Hollow Flow Integration</div>
+        <div class="d-desc">Savvy marketplace embedded behind all Phase 1 surfaces. Bindable quotes from 80+ carriers. User confirms 3-5 fields instead of 30-50. All Phase 1 distribution routes to Savvy instead of MediaAlpha.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-data">Data</span> Data Hydration Pipeline</div>
+        <div class="d-desc">ML first-party signals (bank link, credit trajectory, cash flow, vehicle data, IC eligibility) flow downstream to carriers. Better quotes. Higher CPC/CPQL. Schema defined in Phase 1.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> IC Down Payment Activation</div>
+        <div class="d-desc">Instacash advance offered inline at the binding moment. Covers new policy's down payment, bridging the gap before old policy refund arrives. Economics validated in Phase 1.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-data">Data</span> Transaction-Triggered Targeting</div>
+        <div class="d-desc">Detect renewal approaching and premium increases from bank transaction data. Surface alternatives at the moment of highest frustration. Phase 1 targeting rules expanded with transaction signals.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> In-App Bind + Auto-Cancel</div>
+        <div class="d-desc">One-tap policy switch without leaving MoneyLion. Savvy agents handle old policy cancellation. Refund tracked. Licensed agent assist for complex cases.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Garage Integration</div>
+        <div class="d-desc">Vehicle and policy data from Trellis/Savvy stored in Garage. Enables savings prompts, refinancing, monitoring, and cross-product personalization.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Rate Journey + CoPilot Upgrade</div>
+        <div class="d-desc">Both now reference actual premium data from bank transactions: "You pay [Carrier] $221/mo. Based on your profile, you could pay $148." Real numbers, not estimates.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Direct-to-Offers Experience</div>
+        <div class="d-desc">High-confidence segments skip confirmation entirely. Branded carrier offers shown directly in Discover and in-app surfaces. Minimal friction for users with complete data.</div>
+      </div>
+    </div>
+
+    <div class="phase-unlocks">
+      <strong>What this unlocks:</strong> MoneyLion becomes the only fintech where a user goes from "I wonder if I'm overpaying" to "I just switched, ML covered my down payment, and I'll get an alert if my rate goes up" without leaving the app.
+    </div><div class="phase-unlocks">&gt; We also want to pay users for auto if we can't find them a better deal, but this needs to be worked on with Tom on datapoints on how we can enable it.&nbsp;</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PHASE 3 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <div class="phase-block p3">
+    <span class="phase-tag p3">Phase 3</span>
+    <h3>"MoneyLion Watches Your Insurance For You"</h3>
+    <div class="phase-timing">6 through 12 months. Goal: Build features only MoneyLion can build. Make the experience impossible to replicate.</div>
+
+    <div class="belief-shift">
+      <strong>User belief shift:</strong> From "MoneyLion saved me money" to "MoneyLion handles my insurance. I don't think about it anymore."
+    </div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> <span class="tag tag-partnership">Partnership</span> Continuous Rate Monitoring</div>
+        <div class="d-desc">Trellis re-checks 150+ carriers against the user's profile on schedule and on trigger (credit change, market shift, renewal). Notifies when savings exceed threshold.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Insurance Health Score</div>
+        <div class="d-desc">Coverage adequacy, premium efficiency, and gap assessment displayed alongside credit score on the dashboard. Insurance becomes a daily number that moves when finances move.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Financial Stress Protection</div>
+        <div class="d-desc">Detect cash-flow stress before premium due date from bank data. Offer IC advance to prevent lapse, or recommend temporary coverage adjustment. No competitor has bank data + IC + carrier relationship.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Split for Ongoing Premiums</div>
+        <div class="d-desc">After IC covers the down payment, Split finances ongoing monthly premiums. Recurring revenue for MoneyLion. Recurring touchpoint with the user. No competitor has this.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-partnership">Partnership</span> Embedded at Car Purchase</div>
+        <div class="d-desc">Insurance surfaces at auto loan approval through 1,200+ enterprise partner network. Vehicle known, user in buying mindset, quote instant. 72% of buyers want this (87% Gen Z/Millennials).</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-partnership">Partnership</span> Agent-to-MoneyLion Onboarding</div>
+        <div class="d-desc">Licensed Savvy agents help users sign up for MoneyLion during insurance journey. Insurance acquires ML users instead of ML users discovering insurance. Reverses the funnel.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-data">Data</span> Financial Health Score Signal</div>
+        <div class="d-desc">ML's proprietary score (credit trajectory + cash flow stability + bill payment consistency) sent to carriers as a lead-quality signal. Improves CPC/CPQL. Not underwriting innovation, matching innovation.</div>
+      </div>
+      <div class="deliverable">
+        <div class="d-title"><span class="tag tag-product">Product</span> Garage as Data Moat</div>
+        <div class="d-desc">Vehicle, policy, and insurance spending data stored permanently. Enables multi-vehicle management, refinancing prompts, savings tracking. Gets more valuable with every interaction.</div>
+      </div>
+    </div>
+
+    <div class="phase-unlocks">
+      <strong>The moat:</strong> Requires Trellis carrier network + ML financial data + daily app engagement + product ecosystem. No single competitor has all four. Insurance becomes a set-it-and-improve-it background service.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ECOSYSTEM FLYWHEEL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Ecosystem Strategy</div>
+  <h2>The Flywheel: Insurance Touches Every ML Product</h2>
+  <p class="section-intro">Insurance is the only MoneyLion product with bidirectional value to every other product in the ecosystem. Each connection strengthens the others.</p>
+
+  <div class="flywheel-container">
+    <div class="flywheel-center">Auto<br>Insurance</div>
+    <div class="flywheel-spokes">
+      <div class="fw-spoke">
+        <div class="fw-name">Instacash</div>
+        <div class="fw-in">Funds policy switch down payment. Prevents premium lapse.</div>
+        <div class="fw-out">Insurance users are higher-value IC customers.</div>
+      </div>
+      <div class="fw-spoke">
+        <div class="fw-name">Credit Builder</div>
+        <div class="fw-in">Credit improvement unlocks better rate matching.</div>
+        <div class="fw-out">Users stay in credit program to see rate impact of every gain.</div>
+      </div>
+      <div class="fw-spoke">
+        <div class="fw-name">Split</div>
+        <div class="fw-in">Finances ongoing premium payments.</div>
+        <div class="fw-out">Recurring payments deepen financial data.</div>
+      </div>
+      <div class="fw-spoke">
+        <div class="fw-name">Garage</div>
+        <div class="fw-in">Stores vehicle + policy data for reuse.</div>
+        <div class="fw-out">Enables savings prompts, monitoring, refinancing.</div>
+      </div>
+      <div class="fw-spoke">
+        <div class="fw-name">CoPilot AI</div>
+        <div class="fw-in">Converts informational intent to quote intent.</div>
+        <div class="fw-out">Insurance data enriches financial advice.</div>
+      </div>
+      <div class="fw-spoke">
+        <div class="fw-name">1,200+ Partners</div>
+        <div class="fw-in">Insurance embedded at auto loan approval.</div>
+        <div class="fw-out">Insurance attachment increases partner deal value.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- BUSINESS MODEL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Business Model</div>
+  <h2>Five Revenue Streams Where Competitors Have One</h2>
+  <p class="section-intro">Every other insurance marketplace monetizes one way: referral fee per policy. MoneyLion monetizes the entire insurance journey.</p>
+
+  <div class="revenue-grid">
+    <div class="rev-card">
+      <div class="rev-icon" style="font-size: 20px; color: var(--text-tertiary);">$</div>
+      <div class="rev-name">Referral Fee</div>
+      <div class="rev-desc">Per-policy CPC/CPQL from carriers. Standard marketplace model.</div>
+    </div>
+    <div class="rev-card ml-only">
+      <div class="rev-icon" style="font-size: 20px; color: var(--phase1);">IC</div>
+      <div class="rev-name">IC Advance Fees</div>
+      <div class="rev-desc">Down payment financing via Instacash. Unique to MoneyLion.</div>
+    </div>
+    <div class="rev-card ml-only">
+      <div class="rev-icon" style="font-size: 20px; color: var(--phase1);">SP</div>
+      <div class="rev-name">Split Facilitation</div>
+      <div class="rev-desc">Ongoing premium payments. Recurring revenue stream.</div>
+    </div>
+    <div class="rev-card ml-only">
+      <div class="rev-icon" style="font-size: 20px; color: var(--phase1);">LTV</div>
+      <div class="rev-name">Cross-Product LTV</div>
+      <div class="rev-desc">Insurance users engage with IC, Credit Builder, Split at higher rates.</div>
+    </div>
+    <div class="rev-card ml-only">
+      <div class="rev-icon" style="font-size: 20px; color: var(--phase1);">ACQ</div>
+      <div class="rev-name">Agent Acquisition</div>
+      <div class="rev-desc">Savvy agents onboard new ML users during insurance journey. Reversed funnel.</div>
+    </div>
+  </div>
+
+  <p class="rev-versus">Competitors: <strong>1 revenue stream</strong> (referral fee). MoneyLion: <strong>5 revenue streams</strong> across the full insurance lifecycle.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SUCCESS METRICS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Success Signals</div>
+  <h2>How We Measure Progress</h2>
+
+  <div class="metrics-phases">
+    <div class="metric-col p1">
+      <h4>Phase 1 Metrics</h4>
+      <div class="metric-item">
+        <strong>Insurance impressions per MAU</strong>
+        3-5x increase from baseline
+      </div>
+      <div class="metric-item">
+        <strong>CTR on insurance surfaces</strong>
+        1.5-2x improvement
+      </div>
+      <div class="metric-item">
+        <strong>Quote flow completion rate</strong>
+        Measurable improvement from pre-fill + UX fixes
+      </div>
+      <div class="metric-item">
+        <strong>Rate Journey widget adoption</strong>
+        To be baselined at launch
+      </div>
+      <div class="metric-item">
+        <strong>IC insurance business case</strong>
+        Validated or invalidated with clear data
+      </div>
+      <div class="metric-item">
+        <strong>Marketplace guardrail</strong>
+        No decline in existing Marketplace traffic or visibility
+      </div>
+    </div>
+
+    <div class="metric-col p2">
+      <h4>Phase 2 Metrics</h4>
+      <div class="metric-item">
+        <strong>Quote-to-bind conversion</strong>
+        3-5x improvement from prefill + in-app binding
+      </div>
+      <div class="metric-item">
+        <strong>Median time from insight to bind</strong>
+        Under 90 seconds
+      </div>
+      <div class="metric-item">
+        <strong>Fields user enters</strong>
+        3-5 (down from 30-50 today)
+      </div>
+      <div class="metric-item">
+        <strong>IC down payment attach rate</strong>
+        To be baselined at activation
+      </div>
+      <div class="metric-item">
+        <strong>Transaction-triggered conversion</strong>
+        Renewal and rate-hike prompts measured
+      </div>
+      <div class="metric-item">
+        <strong>Click-out rate</strong>
+        Approaches zero as Savvy replaces MediaAlpha
+      </div>
+    </div>
+
+    <div class="metric-col p3">
+      <h4>Phase 3 Metrics</h4>
+      <div class="metric-item">
+        <strong>Monthly active insurance users</strong>
+        Interact with insurance monthly, not yearly
+      </div>
+      <div class="metric-item">
+        <strong>Cross-product engagement lift</strong>
+        Insurance users engage IC, CB, Split at higher rates
+      </div>
+      <div class="metric-item">
+        <strong>Lapse prevention rate</strong>
+        % in cash-flow stress who maintained coverage via IC
+      </div>
+      <div class="metric-item">
+        <strong>Insurance as acquisition channel</strong>
+        New ML users via agents or partner embed
+      </div>
+      <div class="metric-item">
+        <strong>CPC/CPQL improvement</strong>
+        From Financial Health Score carrier signal
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- RISKS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Key Risks</div>
+  <h2>Top Risks and Mitigations</h2>
+
+  <div class="risk-cards">
+    <div class="risk-card">
+      <div class="risk-title">Trellis integration delayed beyond month 6</div>
+      <div class="risk-impact critical">Critical</div>
+      <div class="risk-mitigation">Phase 1 is designed to deliver standalone value independently of Trellis. Data hydration spec and carrier validation proceed in parallel regardless. Weekly sync with Trellis team on timeline.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">Credit Karma expands Karma Drive beyond Progressive</div>
+      <div class="risk-impact high">High</div>
+      <div class="risk-mitigation">MoneyLion's counter is ecosystem depth, not data breadth. Accelerate Phase 1 distribution to establish the "financial wellness = better rates" narrative before Credit Karma occupies it.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">First impression burn at scale</div>
+      <div class="risk-impact high">High</div>
+      <div class="risk-mitigation">Non-negotiable: friction fixes (pre-fill, loading, trust signals) ship before outbound scales. One shot per user. If someone taps, sees a bad experience, and bails, they will not tap again.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">IC business case does not validate</div>
+      <div class="risk-impact medium">Medium</div>
+      <div class="risk-mitigation">Validate early, fail cheap. If IC economics don't work for insurance, the referral-fee model still works. Ecosystem story shifts to Split and retention-driven LTV.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SUPPORTING DOCUMENTS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Supporting Work</div>
+  <h2>Detailed Documents</h2>
+  <p class="section-intro">Each document below provides working-level detail for teams that need to go deeper on specific workstreams.</p>
+
+  <div class="doc-list">
+    <div class="doc-item">
+      <div class="doc-icon" style="background: #6366F1;">R</div>
+      <div class="doc-text">
+        <span class="doc-title">Research and Competitive Landscape</span>
+        <span class="doc-desc">Market data, competitor teardowns, MoneyLion structural advantages</span>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon" style="background: var(--phase1);">P1</div>
+      <div class="doc-text">
+        <span class="doc-title">Pre-Trellis Growth and Integration Readiness</span>
+        <span class="doc-desc">Phase 1 execution plan, 3-month Gantt, month-by-month breakdown</span>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon" style="background: var(--phase2);">P2</div>
+      <div class="doc-text">
+        <span class="doc-title">Trellis Integration: The Hollow Flow</span>
+        <span class="doc-desc">Hollow flow architecture, IC/Split financing, ongoing monitoring</span>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon" style="background: var(--phase3);">P3</div>
+      <div class="doc-text">
+        <span class="doc-title">Post-MVP Roadmap Evolution</span>
+        <span class="doc-desc">Full 3-phase deliverable detail, success signals, open questions</span>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon" style="background: #EC4899;">UX</div>
+      <div class="doc-text">
+        <span class="doc-title">Auto Tab Redesign Prototypes</span>
+        <span class="doc-desc">Ideal state and v2 distilled mobile prototypes, card variants</span>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon" style="background: #F59E0B;">T</div>
+      <div class="doc-text">
+        <span class="doc-title">LiAT Pre-Fetch Rebuild</span>
+        <span class="doc-desc">Technical spec: reuse existing infrastructure to eliminate redundant input</span>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="doc-icon" style="background: #14B8A6;">IS</div>
+      <div class="doc-text">
+        <span class="doc-title">Innovation Strategy</span>
+        <span class="doc-desc">Ecosystem flywheel, conversion chain, build vs. skip filter, first principles</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .page -->
+
+
+
+</body></html>
